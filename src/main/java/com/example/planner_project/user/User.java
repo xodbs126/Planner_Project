@@ -12,6 +12,13 @@ import lombok.Setter;
 public class User {
 
 
+    public User(Long id, String userId, String userPW, String email) {
+        this.id = id;
+        this.userId = userId;
+        this.userPW = userPW;
+        this.email = email;
+    }
+
     @Id
     private Long id;
 
