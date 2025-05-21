@@ -1,46 +1,20 @@
 package com.example.planner_project.repository;
 
+
+import com.example.planner_project.dto.PlanRequestDTO;
+import com.example.planner_project.dto.PlanResponseDTO;
 import com.example.planner_project.plan.Plan;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class PlanRepository {
-    public static Map<Long, Plan> database = new HashMap<>();
+public interface PlanRepository {
 
-    public static PlanRepository planRepository = new PlanRepository();
+    Plan savePlan(Plan plan);
 
-    public static Long incrementId = 0L;
+    List<Plan> findAllPlans();
 
-
-    public PlanRepository() {
-    }
-
-    public static PlanRepository getInstance() {
-
-        return planRepository;
-    }
+    Plan findPlanById(Long id);
 
 
-    private Plan save(Plan plan) {
-        plan.setId(++incrementId);
-        plan.setPlanDescription(plan.getPlanDescription());
-        plan.setPlanName(plan.getPlanName());
-        plan.setEditDate(plan.getEditDate());
-        plan.setStartDate(plan.getStartDate());
-        plan.setEndDate(plan.getEndDate());
-        plan.setPostDate(plan.getPostDate());
-        plan.setPriority(plan.getPriority());
-        plan.setStatus(plan.getStatus());
-
-        return plan;
-    }
-
-    public List<Plan> findALlPlans(){
-        return new ArrayList<>(database.values());
-    }
-
-
+    void deletePlan(Long id);
 }

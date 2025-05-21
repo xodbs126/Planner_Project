@@ -1,49 +1,44 @@
 package com.example.planner_project.plan;
 
-import com.example.planner_project.user.User;
-import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
-@Entity(name = "Plan")
-@Table(name = "Plan")
 
 @Getter
 @Setter
 public class Plan {
+    private Long id;
+    private String content;
+    private String writer;
+    private String password;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    @Id
-    private long id;
+    public Plan() {
 
-    @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
+    }
 
-    @Column(nullable = false)
-    private String planName;
+    public Plan(Plan plan) {
+        this.id = plan.getId();
+        this.content = plan.getContent();
+        this.writer = plan.getWriter();
+        this.password = plan.getPassword();
+        this.createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+        this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+    }
 
-    @Column(nullable = false)
-    private String planDescription;
 
-    @Column(nullable = false)
-    private LocalDateTime startDate;
-
-    @Column(nullable = false)
-    private LocalDateTime endDate;
-
-    @Column(nullable = false)
-    private LocalDateTime postDate;
-
-    @Column(nullable = false)
-    private LocalDateTime editDate;
-
-    @Enumerated(EnumType.STRING)
-    private Priority priority;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Status status;
+    public Plan(Long id, String content, String writer, String password) {
+        this.id = id;
+        this.content = content;
+        this.writer = writer;
+        this.password = password;
+        this.createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+        this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+    }
 
 }
