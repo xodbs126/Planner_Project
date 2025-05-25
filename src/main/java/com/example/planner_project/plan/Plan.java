@@ -15,6 +15,7 @@ public class Plan {
     private String content;
     private String writer;
     private String password;
+    private Long userId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -29,6 +30,14 @@ public class Plan {
         this.password = plan.getPassword();
         this.createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
         this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+    }
+
+    public Plan(String content, Long userId, String password) {
+        this.content = content;
+        this.userId = userId;
+        this.password = password;
+        this.createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+        this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
     }
 
 

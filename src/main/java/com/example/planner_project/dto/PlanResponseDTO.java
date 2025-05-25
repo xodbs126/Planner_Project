@@ -14,7 +14,6 @@ public class PlanResponseDTO {
     private Long id;
     private String content;
     private String writer;
-    private String password;
     private LocalDateTime createdAt;
     private LocalDateTime editedAt;
 
@@ -24,7 +23,6 @@ public class PlanResponseDTO {
         this.id = plan.getId();
         this.content = plan.getContent();
         this.writer = plan.getWriter();
-        this.password = plan.getPassword();
         this.createdAt = plan.getCreatedAt();
         this.editedAt = plan.getCreatedAt();
     }
