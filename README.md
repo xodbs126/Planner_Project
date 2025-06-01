@@ -2,7 +2,7 @@
 
 ## ERD 다이어그램
 
-<img src="./image.png" alt="ERD 다이어그램" width="600"/>
+<img src="./img.png" alt="ERD 다이어그램" width="600"/>
 
 ## 플래너 API 설계
 | 기능            | 메서드    | URL                  | 요청 타입       | 요청 데이터              | 응답 내용                   | 응답 코드      |
