@@ -11,11 +11,9 @@ import java.util.List;
 public interface PlanService {
     PlanResponseDTO savePlan(PlanRequestDTO requestDTO);
 
-    PlanResponseDTO savePlanV2(PlanRequestDTO_V2 requestDTO);
 
     List<PlanResponseDTO> findPlanByWriterAndEditAt(String writer, LocalDateTime editAtDateTime);
 
-    List<PlanResponseDTO> findPlanByWriterAndEditAtV2(String writer, LocalDateTime editAtDateTime);
 
     PlanResponseDTO findPlanById(Long id);
 

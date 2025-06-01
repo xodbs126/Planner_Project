@@ -20,6 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User findById(Long id) {
         String sql = "SELECT * FROM users WHERE id = ?";
+
         return jdbcTemplate.query(sql, new UserRowMapper(), id)
                 .stream()
                 .findFirst()

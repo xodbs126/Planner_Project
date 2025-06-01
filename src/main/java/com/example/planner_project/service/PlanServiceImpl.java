@@ -48,25 +48,6 @@ public class PlanServiceImpl implements PlanService {
 
     }
 
-    @Override
-    public PlanResponseDTO savePlanV2(PlanRequestDTO_V2 dto) {
-        User user = userRepository.findById(dto.getUserId());
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다.");
-        }
-        log.info(user.getUserName());
-        Plan plan = new Plan();
-        plan.setContent(dto.getContent());
-        plan.setUserId(user.getId());
-        plan.setPassword(user.getPw());
-        plan.setCreatedAt(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-        plan.setUpdatedAt(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-        user.setPlanId(plan.getId());
-        plan.setWriter(user.getUserName());
-        planRepository.savePlan(plan);
-
-        return new PlanResponseDTO(plan);
-    }
 
     @Override
     public List<PlanResponseDTO> findPlanByWriterAndEditAt(String writer, LocalDateTime editAtDateTime) {
@@ -86,22 +67,6 @@ public class PlanServiceImpl implements PlanService {
         return plans;
     }
 
-    @Override
-    public List<PlanResponseDTO> findPlanByWriterAndEditAtV2(String writer, LocalDateTime editAtDateTime) {
-        List<Plan> allPlans = planRepository.findAllPlans();
-        List<PlanResponseDTO> plans = new ArrayList<>();
-        Long targetId = userRepository.findIdByName(writer);
-        for (Plan plan : allPlans) {
-            boolean IdMatch = targetId.equals(plan.getUserId());
-            boolean editAtMatch = (editAtDateTime == null || editAtDateTime.toLocalDate().equals(plan.getUpdatedAt().toLocalDate()));
-
-            if (IdMatch && editAtMatch) {
-                plans.add(new PlanResponseDTO(plan));
-            }
-        }
-        plans.sort((a, b) -> b.getEditedAt().compareTo(a.getEditedAt()));
-        return plans;
-    }
 
     @Override
     public PlanResponseDTO findPlanById(Long id) {

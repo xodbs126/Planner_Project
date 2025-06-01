@@ -3,7 +3,6 @@ package com.example.planner_project.controller;
 
 import com.example.planner_project.dto.*;
 import com.example.planner_project.service.PlanService;
-import com.example.planner_project.service.PlanServiceV2;
 import com.example.planner_project.service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
