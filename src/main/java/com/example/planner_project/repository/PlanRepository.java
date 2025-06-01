@@ -2,7 +2,7 @@ package com.example.planner_project.repository;
 
 
 
-import com.example.planner_project.plan.Plan;
+import com.example.planner_project.entity.Plan;
 
 import java.util.List;
 

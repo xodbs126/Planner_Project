@@ -1,7 +1,7 @@
 package com.example.planner_project.dto;
 
 
-import com.example.planner_project.plan.Plan;
+import com.example.planner_project.entity.Plan;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

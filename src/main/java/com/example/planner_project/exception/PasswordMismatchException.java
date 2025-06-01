@@ -1,7 +1,10 @@
 package com.example.planner_project.exception;
 
-public class PasswordMismatchException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class PasswordMismatchException extends ApplicationException {
+
     public PasswordMismatchException() {
-        super("사용자의 비밀번호가 일치하지 않습니다.");
+        super("비밀번호가 일치하지 않습니다.", HttpStatus.UNAUTHORIZED);
     }
 }

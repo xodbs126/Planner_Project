@@ -1,7 +1,10 @@
 package com.example.planner_project.exception;
 
-public class PlanNotFoundException extends RuntimeException {
-    public PlanNotFoundException(Long id) {
-        super("해당 ID(" + id + ")의 일정을 찾을 수 없습니다.");
+import org.springframework.http.HttpStatus;
+
+public class PlanNotFoundException extends ApplicationException {
+
+    public PlanNotFoundException(String message) {
+        super(message, HttpStatus.NOT_FOUND);
     }
 }

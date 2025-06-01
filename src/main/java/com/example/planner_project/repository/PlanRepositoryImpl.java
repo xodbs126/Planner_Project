@@ -1,6 +1,6 @@
 package com.example.planner_project.repository;
 
-import com.example.planner_project.plan.Plan;
+import com.example.planner_project.entity.Plan;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

@@ -6,11 +6,11 @@ import com.example.planner_project.dto.PlanRequestDTO_V2;
 import com.example.planner_project.dto.PlanResponseDTO;
 import com.example.planner_project.exception.PasswordMismatchException;
 import com.example.planner_project.exception.PlanNotFoundException;
-import com.example.planner_project.plan.Plan;
+import com.example.planner_project.entity.Plan;
 import com.example.planner_project.repository.PlanRepository;
 import com.example.planner_project.repository.UserRepository;
 import com.example.planner_project.repository.UserRepositoryImpl;
-import com.example.planner_project.user.User;
+import com.example.planner_project.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -28,13 +28,11 @@ public class PlanServiceImpl implements PlanService {
 
     private final PlanRepository planRepository;
     private final UserRepository userRepository;
-    private final UserRepositoryImpl userRepositoryImpl;
-
 
     public PlanServiceImpl(PlanRepository planRepository, UserRepository userRepository, UserRepositoryImpl userRepositoryImpl) {
         this.planRepository = planRepository;
         this.userRepository = userRepository;
-        this.userRepositoryImpl = userRepositoryImpl;
+
     }
 
     @Override
@@ -56,7 +54,7 @@ public class PlanServiceImpl implements PlanService {
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다.");
         }
-
+        log.info(user.getUserName());
         Plan plan = new Plan();
         plan.setContent(dto.getContent());
         plan.setUserId(user.getId());
@@ -64,6 +62,7 @@ public class PlanServiceImpl implements PlanService {
         plan.setCreatedAt(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
         plan.setUpdatedAt(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
         user.setPlanId(plan.getId());
+        plan.setWriter(user.getUserName());
         planRepository.savePlan(plan);
 
         return new PlanResponseDTO(plan);
@@ -92,11 +91,9 @@ public class PlanServiceImpl implements PlanService {
         List<Plan> allPlans = planRepository.findAllPlans();
         List<PlanResponseDTO> plans = new ArrayList<>();
         Long targetId = userRepository.findIdByName(writer);
-
         for (Plan plan : allPlans) {
             boolean IdMatch = targetId.equals(plan.getUserId());
             boolean editAtMatch = (editAtDateTime == null || editAtDateTime.toLocalDate().equals(plan.getUpdatedAt().toLocalDate()));
-
 
             if (IdMatch && editAtMatch) {
                 plans.add(new PlanResponseDTO(plan));
@@ -135,7 +132,7 @@ public class PlanServiceImpl implements PlanService {
         Plan plan = planRepository.findPlanById(id);
 
         if (plan == null) {
-            throw new PlanNotFoundException(id);
+            throw new PlanNotFoundException("사용자를 찾을 수 없습니다.");
         }
 
         if (!plan.getPassword().equals(pwDto.getPassword())) {
